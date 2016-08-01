@@ -1,0 +1,6 @@
+[package]
+name = "byte_string"
+version = "1.0.0"
+authors = ["Francis Gagné <fragag1@gmail.com>"]
+
+[dependencies]
