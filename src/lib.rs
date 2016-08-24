@@ -1,3 +1,32 @@
+//! The `byte_string` crate provides a type, `ByteString`,
+//! that wraps a byte slice (`[u8]`) and provides a `Debug` implementation
+//! that outputs the slice using the Rust byte string syntax.
+//!
+//! For example:
+//!
+//! ```
+//! extern crate byte_string;
+//!
+//! use byte_string::ByteString;
+//!
+//! fn main() {
+//!     let s = b"Hello, world!";
+//!     let bs = ByteString::new(s);
+//!     assert_eq!(format!("{:?}", bs), "b\"Hello, world!\"");
+//! }
+//! ```
+//!
+//! `ByteString` is an unsized type, as `[u8]` is.
+//! `ByteString::new()` returns a `&ByteString`
+//! and `ByteString::new_mut()` returns a `&mut ByteString`.
+//!
+//! `ByteString` is meant to be used as an implementation detail.
+//! You should generally avoid exposing a `ByteString`
+//! as part of a struct or enum;
+//! prefer exposing the underlying slice instead.
+//! However, `ByteString` implements many traits, including derivable traits,
+//! which makes it suitable for use as a private member of a struct or enum.
+
 use std::fmt::{Debug, Error, Formatter};
 use std::mem;
 use std::ops::{Deref, DerefMut};
