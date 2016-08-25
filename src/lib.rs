@@ -34,7 +34,7 @@ use std::ops::{Deref, DerefMut};
 /// Wraps a byte slice and provides a `Debug` implementation
 /// that outputs the slice using the Rust byte string syntax (e.g. `b"abc"`).
 #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct ByteStr([u8]);
+pub struct ByteStr(pub [u8]);
 
 impl ByteStr {
     /// Converts an immutable byte slice to an immutable `ByteStr` reference.
