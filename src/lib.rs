@@ -1,4 +1,4 @@
-//! The `byte_string` crate provides a type, `ByteString`,
+//! The `byte_string` crate provides a type, `ByteStr`,
 //! that wraps a byte slice (`[u8]`) and provides a `Debug` implementation
 //! that outputs the slice using the Rust byte string syntax.
 //!
@@ -7,24 +7,24 @@
 //! ```
 //! extern crate byte_string;
 //!
-//! use byte_string::ByteString;
+//! use byte_string::ByteStr;
 //!
 //! fn main() {
 //!     let s = b"Hello, world!";
-//!     let bs = ByteString::new(s);
+//!     let bs = ByteStr::new(s);
 //!     assert_eq!(format!("{:?}", bs), "b\"Hello, world!\"");
 //! }
 //! ```
 //!
-//! `ByteString` is an unsized type, as `[u8]` is.
-//! `ByteString::new()` returns a `&ByteString`
-//! and `ByteString::new_mut()` returns a `&mut ByteString`.
+//! `ByteStr` is an unsized type, as `[u8]` is.
+//! `ByteStr::new()` returns a `&ByteStr`
+//! and `ByteStr::new_mut()` returns a `&mut ByteStr`.
 //!
-//! `ByteString` is meant to be used as an implementation detail.
-//! You should generally avoid exposing a `ByteString`
+//! `ByteStr` is meant to be used as an implementation detail.
+//! You should generally avoid exposing a `ByteStr`
 //! as part of a struct or enum;
 //! prefer exposing the underlying slice instead.
-//! However, `ByteString` implements many traits, including derivable traits,
+//! However, `ByteStr` implements many traits, including derivable traits,
 //! which makes it suitable for use as a private member of a struct or enum.
 
 use std::fmt::{Debug, Error, Formatter};
@@ -34,81 +34,81 @@ use std::ops::{Deref, DerefMut};
 /// Wraps a byte slice and provides a `Debug` implementation
 /// that outputs the slice using the Rust byte string syntax (e.g. `b"abc"`).
 #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct ByteString([u8]);
+pub struct ByteStr([u8]);
 
-impl ByteString {
-    /// Converts an immutable byte slice to an immutable `ByteString` reference.
-    pub fn new(s: &[u8]) -> &ByteString {
+impl ByteStr {
+    /// Converts an immutable byte slice to an immutable `ByteStr` reference.
+    pub fn new(s: &[u8]) -> &ByteStr {
         unsafe { mem::transmute(s) }
     }
 
-    /// Converts a mutable byte slice to a mutable `ByteString` reference.
-    pub fn new_mut(s: &mut [u8]) -> &mut ByteString {
+    /// Converts a mutable byte slice to a mutable `ByteStr` reference.
+    pub fn new_mut(s: &mut [u8]) -> &mut ByteStr {
         unsafe { mem::transmute(s) }
     }
 }
 
-impl<'a> From<&'a [u8]> for &'a ByteString {
-    fn from(s: &[u8]) -> &ByteString {
-        ByteString::new(s)
+impl<'a> From<&'a [u8]> for &'a ByteStr {
+    fn from(s: &[u8]) -> &ByteStr {
+        ByteStr::new(s)
     }
 }
 
-impl<'a> From<&'a mut [u8]> for &'a mut ByteString {
-    fn from(s: &mut [u8]) -> &mut ByteString {
-        ByteString::new_mut(s)
+impl<'a> From<&'a mut [u8]> for &'a mut ByteStr {
+    fn from(s: &mut [u8]) -> &mut ByteStr {
+        ByteStr::new_mut(s)
     }
 }
 
-impl<'a> From<&'a ByteString> for &'a [u8] {
-    fn from(s: &ByteString) -> &[u8] {
+impl<'a> From<&'a ByteStr> for &'a [u8] {
+    fn from(s: &ByteStr) -> &[u8] {
         &s.0
     }
 }
 
-impl<'a> From<&'a mut ByteString> for &'a mut [u8] {
-    fn from(s: &mut ByteString) -> &mut [u8] {
+impl<'a> From<&'a mut ByteStr> for &'a mut [u8] {
+    fn from(s: &mut ByteStr) -> &mut [u8] {
         &mut s.0
     }
 }
 
-impl AsRef<[u8]> for ByteString {
+impl AsRef<[u8]> for ByteStr {
     fn as_ref(&self) -> &[u8] {
         &self.0
     }
 }
 
-impl AsRef<ByteString> for [u8] {
-    fn as_ref(&self) -> &ByteString {
-        ByteString::new(self)
+impl AsRef<ByteStr> for [u8] {
+    fn as_ref(&self) -> &ByteStr {
+        ByteStr::new(self)
     }
 }
 
-impl AsMut<[u8]> for ByteString {
+impl AsMut<[u8]> for ByteStr {
     fn as_mut(&mut self) -> &mut [u8] {
         &mut self.0
     }
 }
 
-impl AsMut<ByteString> for [u8] {
-    fn as_mut(&mut self) -> &mut ByteString {
-        ByteString::new_mut(self)
+impl AsMut<ByteStr> for [u8] {
+    fn as_mut(&mut self) -> &mut ByteStr {
+        ByteStr::new_mut(self)
     }
 }
 
-impl PartialEq<[u8]> for ByteString {
+impl PartialEq<[u8]> for ByteStr {
     fn eq(&self, other: &[u8]) -> bool {
         &self.0 == other
     }
 }
 
-impl PartialEq<ByteString> for [u8] {
-    fn eq(&self, other: &ByteString) -> bool {
+impl PartialEq<ByteStr> for [u8] {
+    fn eq(&self, other: &ByteStr) -> bool {
         self == &other.0
     }
 }
 
-impl Deref for ByteString {
+impl Deref for ByteStr {
     type Target = [u8];
 
     fn deref(&self) -> &[u8] {
@@ -116,25 +116,25 @@ impl Deref for ByteString {
     }
 }
 
-impl DerefMut for ByteString {
+impl DerefMut for ByteStr {
     fn deref_mut(&mut self) -> &mut [u8] {
         &mut self.0
     }
 }
 
-impl<'a> Default for &'a ByteString {
-    fn default() -> &'a ByteString {
-        ByteString::new(&[])
+impl<'a> Default for &'a ByteStr {
+    fn default() -> &'a ByteStr {
+        ByteStr::new(&[])
     }
 }
 
-impl<'a> Default for &'a mut ByteString {
-    fn default() -> &'a mut ByteString {
-        ByteString::new_mut(&mut [])
+impl<'a> Default for &'a mut ByteStr {
+    fn default() -> &'a mut ByteStr {
+        ByteStr::new_mut(&mut [])
     }
 }
 
-impl<'a> IntoIterator for &'a ByteString {
+impl<'a> IntoIterator for &'a ByteStr {
     type Item = &'a u8;
     type IntoIter = std::slice::Iter<'a, u8>;
 
@@ -143,7 +143,7 @@ impl<'a> IntoIterator for &'a ByteString {
     }
 }
 
-impl<'a> IntoIterator for &'a mut ByteString {
+impl<'a> IntoIterator for &'a mut ByteStr {
     type Item = &'a mut u8;
     type IntoIter = std::slice::IterMut<'a, u8>;
 
@@ -152,7 +152,7 @@ impl<'a> IntoIterator for &'a mut ByteString {
     }
 }
 
-impl Debug for ByteString {
+impl Debug for ByteStr {
     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
         try!(write!(f, "b\""));
 
@@ -190,7 +190,7 @@ mod tests {
             0xE0, 0xE1, 0xE2, 0xE3, 0xE4, 0xE5, 0xE6, 0xE7, 0xE8, 0xE9, 0xEA, 0xEB, 0xEC, 0xED, 0xEE, 0xEF,
             0xF0, 0xF1, 0xF2, 0xF3, 0xF4, 0xF5, 0xF6, 0xF7, 0xF8, 0xF9, 0xFA, 0xFB, 0xFC, 0xFD, 0xFE, 0xFF,
         ];
-        let bs = ByteString::new(&bytes);
+        let bs = ByteStr::new(&bytes);
         let result = format!("{:?}", bs);
         assert_eq!(result, concat!("b\"",
             "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f",
