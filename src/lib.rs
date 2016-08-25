@@ -344,6 +344,7 @@ impl Debug for ByteString {
 mod tests {
     use super::*;
 
+    const EMPTY: &'static str = "b\"\"";
     const ALL_BYTES: &'static str = concat!("b\"",
         "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\t\\n\\x0b\\x0c\\r\\x0e\\x0f",
         "\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f",
@@ -362,6 +363,14 @@ mod tests {
         "\\xe0\\xe1\\xe2\\xe3\\xe4\\xe5\\xe6\\xe7\\xe8\\xe9\\xea\\xeb\\xec\\xed\\xee\\xef",
         "\\xf0\\xf1\\xf2\\xf3\\xf4\\xf5\\xf6\\xf7\\xf8\\xf9\\xfa\\xfb\\xfc\\xfd\\xfe\\xff",
         "\"");
+
+    #[test]
+    fn debug_bytestr_empty() {
+        let bytes = [];
+        let bs = ByteStr::new(&bytes);
+        let result = format!("{:?}", bs);
+        assert_eq!(result, EMPTY);
+    }
 
     #[test]
     fn debug_bytestr() {
@@ -386,6 +395,14 @@ mod tests {
         let bs = ByteStr::new(&bytes);
         let result = format!("{:?}", bs);
         assert_eq!(result, ALL_BYTES);
+    }
+
+    #[test]
+    fn debug_bytestring_empty() {
+        let bytes = vec![];
+        let bs = ByteString::new(bytes);
+        let result = format!("{:?}", bs);
+        assert_eq!(result, EMPTY);
     }
 
     #[test]
