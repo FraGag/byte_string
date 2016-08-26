@@ -29,6 +29,8 @@
 //! However, `ByteStr` and `ByteString` implement many traits, including derivable traits,
 //! which makes them suitable for use as a private member of a struct or enum.
 
+#![warn(missing_docs)]
+
 use std::borrow::{Borrow, BorrowMut};
 use std::fmt::{Debug, Error, Formatter};
 use std::iter::FromIterator;
