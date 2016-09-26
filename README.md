@@ -1,4 +1,4 @@
-# byte_string
+# byte_string [![Build Status](https://travis-ci.org/FraGag/byte_string.svg?branch=master)](https://travis-ci.org/FraGag/byte_string)
 
 The `byte_string` crate provides two types: `ByteStr` and `ByteString`.
 Both types provide a `Debug` implementation
