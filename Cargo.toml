@@ -8,5 +8,6 @@ repository = "https://github.com/FraGag/byte_string"
 readme = "README.md"
 keywords = ["ascii", "ascii string", "byte string", "debug", "string"]
 license = "MIT/Apache-2.0"
+exclude = [".travis.yml"]
 
 [dependencies]
