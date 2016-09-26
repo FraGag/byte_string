@@ -30,3 +30,12 @@ as part of a struct or enum;
 prefer exposing the underlying slice or vector instead.
 However, `ByteStr` and `ByteString` implement many traits, including derivable traits,
 which makes them suitable for use as a private member of a struct or enum.
+
+## License
+
+<b>byte_string</b> is licensed
+under the terms of both the [MIT license][license-mit]
+and the [Apache License, version 2.0][license-apache].
+
+[license-mit]: LICENSE-MIT
+[license-apache]: LICENSE-APACHE
