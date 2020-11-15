@@ -39,11 +39,13 @@ use std::ops::{Deref, DerefMut};
 
 /// Wraps a byte slice and provides a `Debug` implementation
 /// that outputs the slice using the Rust byte string syntax (e.g. `b"abc"`).
+#[repr(transparent)]
 #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ByteStr(pub [u8]);
 
 /// Wraps a vector of bytes and provides a `Debug` implementation
 /// that outputs the slice using the Rust byte string syntax (e.g. `b"abc"`).
+#[repr(transparent)]
 #[derive(Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ByteString(pub Vec<u8>);
 
