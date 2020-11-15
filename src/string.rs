@@ -1,5 +1,6 @@
 use core::{
     borrow::{Borrow, BorrowMut},
+    fmt::Display,
     fmt::{self, Debug, Formatter},
     iter::FromIterator,
     ops::{Deref, DerefMut},
@@ -175,5 +176,12 @@ impl Debug for ByteString {
     fn fmt(&self, f: &mut Formatter) -> Result<(), fmt::Error> {
         // Delegate to ByteStr's implementation
         Debug::fmt(Borrow::<ByteStr>::borrow(self), f)
+    }
+}
+
+impl Display for ByteString {
+    fn fmt(&self, f: &mut Formatter) -> Result<(), fmt::Error> {
+        // Delegate to ByteStr's implementation
+        Display::fmt(Borrow::<ByteStr>::borrow(self), f)
     }
 }

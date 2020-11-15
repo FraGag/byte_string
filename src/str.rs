@@ -1,5 +1,5 @@
 use core::{
-    fmt::{self, Debug, Formatter},
+    fmt::{self, Debug, Display, Formatter},
     ops::{Deref, DerefMut},
 };
 
@@ -138,5 +138,17 @@ impl Debug for ByteStr {
         }
 
         write!(f, "\"")
+    }
+}
+
+impl Display for ByteStr {
+    fn fmt(&self, f: &mut Formatter) -> Result<(), fmt::Error> {
+        for &byte in self {
+            for ch in core::ascii::escape_default(byte) {
+                write!(f, "{}", ch as char)?;
+            }
+        }
+
+        Ok(())
     }
 }

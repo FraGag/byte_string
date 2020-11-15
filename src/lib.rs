@@ -31,7 +31,7 @@
 //!
 //! ## `no_std` support
 //!
-//! When built without default features (namely `std`) this crate supports `#![no_std]` 
+//! When built without default features (namely `std`) this crate supports `#![no_std]`
 //! (though note that `ByteString` is supported only with `std` feature).
 
 #![warn(missing_docs)]
