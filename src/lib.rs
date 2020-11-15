@@ -45,7 +45,6 @@ pub struct ByteStr(pub [u8]);
 
 /// Wraps a vector of bytes and provides a `Debug` implementation
 /// that outputs the slice using the Rust byte string syntax (e.g. `b"abc"`).
-#[repr(transparent)]
 #[derive(Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ByteString(pub Vec<u8>);
 
@@ -167,11 +166,11 @@ impl<'a> IntoIterator for &'a mut ByteStr {
 
 impl Debug for ByteStr {
     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
-        try!(write!(f, "b\""));
+        write!(f, "b\"")?;
 
         for &byte in self {
             for ch in std::ascii::escape_default(byte) {
-                try!(write!(f, "{}", ch as char));
+                write!(f, "{}", ch as char)?;
             }
         }
 
