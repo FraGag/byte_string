@@ -1,24 +1,25 @@
 use core::{
     fmt::{self, Debug, Formatter},
-    mem,
     ops::{Deref, DerefMut},
 };
+
+use ref_cast::RefCast;
 
 /// Wraps a byte slice and provides a `Debug` implementation
 /// that outputs the slice using the Rust byte string syntax (e.g. `b"abc"`).
 #[repr(transparent)]
-#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Hash, ref_cast::RefCast)]
 pub struct ByteStr(pub [u8]);
 
 impl ByteStr {
     /// Converts an immutable byte slice to an immutable `ByteStr` reference.
     pub fn new(s: &[u8]) -> &ByteStr {
-        unsafe { mem::transmute(s) }
+        Self::ref_cast(s)
     }
 
     /// Converts a mutable byte slice to a mutable `ByteStr` reference.
     pub fn new_mut(s: &mut [u8]) -> &mut ByteStr {
-        unsafe { mem::transmute(s) }
+        Self::ref_cast_mut(s)
     }
 }
 
