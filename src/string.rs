@@ -159,7 +159,7 @@ impl<'a> IntoIterator for &'a ByteString {
     type IntoIter = core::slice::Iter<'a, u8>;
 
     fn into_iter(self) -> Self::IntoIter {
-        (&self.0).into_iter()
+        self.0.iter()
     }
 }
 
@@ -168,7 +168,7 @@ impl<'a> IntoIterator for &'a mut ByteString {
     type IntoIter = core::slice::IterMut<'a, u8>;
 
     fn into_iter(self) -> Self::IntoIter {
-        (&mut self.0).into_iter()
+        self.0.iter_mut()
     }
 }
 

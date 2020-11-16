@@ -10,12 +10,10 @@
 //! ```
 //! use byte_string::ByteStr;
 //!
-//! fn main() {
-//!     let s = b"Hello, world!";
-//!     let bs = ByteStr::new(s);
-//!     assert_eq!(format!("{:?}", bs), "b\"Hello, world!\"");
-//!     assert_eq!(format!("{}", bs), "Hello, world!");
-//! }
+//! let s = b"Hello, world!";
+//! let bs = ByteStr::new(s);
+//! assert_eq!(format!("{:?}", bs), "b\"Hello, world!\"");
+//! assert_eq!(format!("{}", bs), "Hello, world!");
 //! ```
 //!
 //! [`ByteStr`] is an unsized type, as `[u8]` is.
