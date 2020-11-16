@@ -1,16 +1,15 @@
 # byte_string [![Build Status](https://travis-ci.org/FraGag/byte_string.svg?branch=master)](https://travis-ci.org/FraGag/byte_string)
 
-The `byte_string` crate provides two types: `ByteStr` and `ByteString`.
-Both types provide a `Debug` implementation
-that outputs the slice using the Rust byte string syntax.
-`ByteStr` wraps a byte slice (`[u8]`).
+The `byte_string` crate provides two types: `ByteStr` and `ByteString`. 
+Both types provide a `Debug` implementation 
+that outputs the slice using the Rust byte string syntax 
+and a `Display` implementation with similar output, but without b"". 
+`ByteStr` wraps a byte slice (`[u8]`). 
 `ByteString` wraps a vector of bytes (`Vec<u8>`).
 
 For example:
 
 ```rust
-extern crate byte_string;
-
 use byte_string::ByteStr;
 
 fn main() {
@@ -30,6 +29,11 @@ as part of a struct or enum;
 prefer exposing the underlying slice or vector instead.
 However, `ByteStr` and `ByteString` implement many traits, including derivable traits,
 which makes them suitable for use as a private member of a struct or enum.
+
+## `no_std` support
+
+When built without default features (namely `std`) this crate supports `#![no_std]`
+(though note that `ByteString` is supported only with `std` feature).
 
 ## License
 

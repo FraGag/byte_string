@@ -8,8 +8,8 @@ use core::{
 
 use crate::ByteStr;
 
-/// Wraps a vector of bytes and provides a `Debug` implementation
-/// that outputs the slice using the Rust byte string syntax (e.g. `b"abc"`).
+/// Wraps a vector of bytes and provides a [`Debug`] (and a [`Display`]) implementation
+/// that outputs the slice using the Rust byte string syntax (e.g. `b"abc"` (display will output `abc`)).
 #[derive(Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ByteString(pub Vec<u8>);
 

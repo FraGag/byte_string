@@ -5,8 +5,8 @@ use core::{
 
 use ref_cast::RefCast;
 
-/// Wraps a byte slice and provides a `Debug` implementation
-/// that outputs the slice using the Rust byte string syntax (e.g. `b"abc"`).
+/// Wraps a byte slice and provides a [`Debug`] (and a [`Display`]) implementation
+/// that outputs the slice using the Rust byte string syntax (e.g. `b"abc"` (display will output `abc`)).
 #[repr(transparent)]
 #[derive(PartialEq, Eq, PartialOrd, Ord, Hash, ref_cast::RefCast)]
 pub struct ByteStr(pub [u8]);

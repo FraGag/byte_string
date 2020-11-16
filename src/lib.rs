@@ -1,33 +1,35 @@
-//! The `byte_string` crate provides two types: `ByteStr` and `ByteString`.
-//! Both types provide a `Debug` implementation
-//! that outputs the slice using the Rust byte string syntax.
-//! `ByteStr` wraps a byte slice (`[u8]`).
-//! `ByteString` wraps a vector of bytes (`Vec<u8>`).
+//! The `byte_string` crate provides two types: [`ByteStr`] and [`ByteString`].
+//! Both types provide a [`Debug`] implementation
+//! that outputs the slice using the Rust byte string syntax and a
+//! [`Display`] implementation with similar output, but without `b""`.
+//! [`ByteStr`] wraps a byte slice (`[u8]`).
+//! [`ByteString`] wraps a vector of bytes (`Vec<u8>`).
 //!
 //! For example:
 //!
 //! ```
-//! extern crate byte_string;
-//!
 //! use byte_string::ByteStr;
 //!
 //! fn main() {
 //!     let s = b"Hello, world!";
 //!     let bs = ByteStr::new(s);
 //!     assert_eq!(format!("{:?}", bs), "b\"Hello, world!\"");
+//!     assert_eq!(format!("{}", bs), "Hello, world!");
 //! }
 //! ```
 //!
-//! `ByteStr` is an unsized type, as `[u8]` is.
-//! `ByteStr::new()` returns a `&ByteStr`
-//! and `ByteStr::new_mut()` returns a `&mut ByteStr`.
+//! [`ByteStr`] is an unsized type, as `[u8]` is.
+//! [`ByteStr::new()`] returns a `&ByteStr`
+//! and [`ByteStr::new_mut()`] returns a `&mut ByteStr`.
 //!
-//! `ByteStr` and `ByteString` are meant to be used as an implementation detail.
-//! You should generally avoid exposing a `ByteStr` or a `ByteString`
+//! [`ByteStr`] and [`ByteString`] are meant to be used as an implementation detail.
+//! You should generally avoid exposing a [`ByteStr`] or a [`ByteString`]
 //! as part of a struct or enum;
 //! prefer exposing the underlying slice or vector instead.
-//! However, `ByteStr` and `ByteString` implement many traits, including derivable traits,
+//! However, [`ByteStr`] and [`ByteString`] implement many traits, including derivable traits,
 //! which makes them suitable for use as a private member of a struct or enum.
+//!
+//! [`Display`]: core::fmt::Display
 //!
 //! ## `no_std` support
 //!
