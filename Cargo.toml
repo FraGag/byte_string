@@ -1,6 +1,6 @@
 [package]
 name = "byte_string"
-version = "1.0.0"
+version = "1.1.0"
 edition = "2018"
 authors = ["Francis Gagné <fragag1@gmail.com>"]
 description = "Wrapper types for outputting byte strings (b\"Hello\") using the Debug ({:?}) format."
